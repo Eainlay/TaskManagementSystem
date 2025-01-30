@@ -46,7 +46,7 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">{{!editMode ? 'Create Department' : 'Edit Department'}}</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">{{!editMode ? 'Create Department' : 'Update Department'}}</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -60,6 +60,9 @@
                                         <div class="form-group">
                                             <label for="name">Department Name</label>
                                             <input type="text" name="name" class="form-control" v-model="departmentData.name">
+                                            <p class="text-danger" v-if="departmentError.name">
+                                               * Name is required
+                                            </p>
                                         </div>
                                     </div>
 
@@ -72,6 +75,9 @@
                                                 <option value="2">HR Director</option>
 
                                             </select>
+                                            <p class="text-danger" v-if="departmentError.director_id">
+                                               * Director is required
+                                            </p>
                                         </div>
                                     </div>
 
@@ -110,6 +116,10 @@ export default {
             id:'',
             name: '',
             director_id: ''
+            },
+            departmentError:{
+                name:false,
+                director_id:false
             }
         }
     },
@@ -158,14 +168,20 @@ export default {
       },
 
       updateDepartment(){
-
-        axios.post(window.baseUrl+'api/updateDepartment/'+this.departmentData.id,this.departmentData)
+        this.departmentData.name=='' ? this.departmentError.name=true :this.departmentError.name=false
+            this.departmentData.director_id==' '?this.departmentError.director_id=true : this.departmentError.director_id=false
+            if(this.departmentData.name && this.departmentData.director_id){
+            axios.post(window.baseUrl+'api/updateDepartment/'+this.departmentData.id,this.departmentData)
            .then((response)=>{
             this.getDepartments()
             // console.log(response.data);
             $('#exampleModal').modal('hide')
 
         });
+
+        }
+
+
       },
 
         createDepartment() {
@@ -175,6 +191,10 @@ export default {
         },
 
         storeDepartment() {
+
+            this.departmentData.name=='' ? this.departmentError.name=true :this.departmentError.name=false
+            this.departmentData.director_id==' '?this.departmentError.director_id=true : this.departmentError.director_id=false
+            if(this.departmentData.name && this.departmentData.director_id){
             axios.post(window.baseUrl+'api/storeDepartment',this.departmentData)
            .then((response)=>{
             this.getDepartments()
@@ -183,6 +203,7 @@ export default {
             $('#exampleModal').modal('hide')
 
         });
+    }
       }
 
 
@@ -190,6 +211,7 @@ export default {
     mounted() {
         this.getDepartments()
     }
+
 
 }
 

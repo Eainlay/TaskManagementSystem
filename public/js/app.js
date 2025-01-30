@@ -22966,6 +22966,10 @@ __webpack_require__.r(__webpack_exports__);
         id: '',
         name: '',
         director_id: ''
+      },
+      departmentError: {
+        name: false,
+        director_id: false
       }
     };
   },
@@ -23003,11 +23007,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateDepartment: function updateDepartment() {
       var _this3 = this;
-      axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(window.baseUrl + 'api/updateDepartment/' + this.departmentData.id, this.departmentData).then(function (response) {
-        _this3.getDepartments();
-        // console.log(response.data);
-        $('#exampleModal').modal('hide');
-      });
+      this.departmentData.name == '' ? this.departmentError.name = true : this.departmentError.name = false;
+      this.departmentData.director_id == ' ' ? this.departmentError.director_id = true : this.departmentError.director_id = false;
+      if (this.departmentData.name && this.departmentData.director_id) {
+        axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(window.baseUrl + 'api/updateDepartment/' + this.departmentData.id, this.departmentData).then(function (response) {
+          _this3.getDepartments();
+          // console.log(response.data);
+          $('#exampleModal').modal('hide');
+        });
+      }
     },
     createDepartment: function createDepartment() {
       this.editMode = false;
@@ -23016,12 +23024,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     storeDepartment: function storeDepartment() {
       var _this4 = this;
-      axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(window.baseUrl + 'api/storeDepartment', this.departmentData).then(function (response) {
-        _this4.getDepartments();
+      this.departmentData.name == '' ? this.departmentError.name = true : this.departmentError.name = false;
+      this.departmentData.director_id == ' ' ? this.departmentError.director_id = true : this.departmentError.director_id = false;
+      if (this.departmentData.name && this.departmentData.director_id) {
+        axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(window.baseUrl + 'api/storeDepartment', this.departmentData).then(function (response) {
+          _this4.getDepartments();
 
-        // console.log(response.data);
-        $('#exampleModal').modal('hide');
-      });
+          // console.log(response.data);
+          $('#exampleModal').modal('hide');
+        });
+      }
     }
   },
   mounted: function mounted() {
@@ -23106,12 +23118,20 @@ var _hoisted_18 = {
   "class": "form-group"
 };
 var _hoisted_19 = {
-  "class": "col-md-6"
+  key: 0,
+  "class": "text-danger"
 };
 var _hoisted_20 = {
-  "class": "form-group"
+  "class": "col-md-6"
 };
 var _hoisted_21 = {
+  "class": "form-group"
+};
+var _hoisted_22 = {
+  key: 0,
+  "class": "text-danger"
+};
+var _hoisted_23 = {
   "class": "modal-footer"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -23140,7 +23160,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, _toConsumableArray(_cache[6] || (_cache[6] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
       "class": "fa fa-trash"
     }, null, -1 /* HOISTED */)])), 8 /* PROPS */, _hoisted_9)])]);
-  }), 128 /* KEYED_FRAGMENT */))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(!$data.editMode ? 'Create Department' : 'Edit Department'), 1 /* TEXT */), _cache[8] || (_cache[8] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }), 128 /* KEYED_FRAGMENT */))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(!$data.editMode ? 'Create Department' : 'Update Department'), 1 /* TEXT */), _cache[8] || (_cache[8] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn-close",
     "data-bs-dismiss": "modal",
@@ -23154,7 +23174,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $data.departmentData.name = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.departmentData.name]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_cache[11] || (_cache[11] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.departmentData.name]]), $data.departmentError.name ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_19, " * Name is required ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_cache[11] || (_cache[11] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "director_id"
   }, "Director", -1 /* HOISTED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     name: "director_id",
@@ -23168,7 +23188,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     value: "1"
   }, "IT Director", -1 /* HOISTED */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
     value: "2"
-  }, "HR Director", -1 /* HOISTED */)]), 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.departmentData.director_id]])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, "HR Director", -1 /* HOISTED */)]), 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.departmentData.director_id]]), $data.departmentError.director_id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_22, " * Director is required ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [_cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-secondary",
     "data-bs-dismiss": "modal"
